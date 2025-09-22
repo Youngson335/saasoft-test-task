@@ -14,7 +14,8 @@
 
 <style scoped>
 .hint {
-  background-color: #fdfd96;
+  background-color: #ca8762;
+  color: white;
   padding: 1rem;
   border-radius: 8px;
   margin-bottom: 1.5rem;
