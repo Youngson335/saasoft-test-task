@@ -13,6 +13,7 @@
           :parse-labels="accountStore.parseLabels"
           @delete="accountStore.deleteAccount(account.id)"
           @validate="accountStore.validateAccount(account)"
+          @update:account="updateAccount(account.id, $event)"
         />
       </TransitionGroup>
     </div>
@@ -21,12 +22,23 @@
 
 <script setup lang="ts">
 import { onMounted } from "vue";
-import { useAccountStore } from "./stores/accountStore";
-import AppHeader from "./components/AppHeader.vue";
-import AppHint from "./components/AppHint.vue";
-import AccountItem from "./components/AccountItem.vue";
+import { useAccountStore } from "@/stores/accountStore";
+import AppHeader from "@/components/AppHeader.vue";
+import AppHint from "@/components/AppHint.vue";
+import AccountItem from "./components/Account/AccountItem.vue";
 
 const accountStore = useAccountStore();
+
+const updateAccount = (id: string, updatedAccount: any) => {
+  const index = accountStore.accounts.findIndex((acc) => acc.id === id);
+  if (index !== -1) {
+    accountStore.accounts[index] = {
+      ...accountStore.accounts[index],
+      ...updatedAccount,
+    };
+    accountStore.saveToStorage();
+  }
+};
 
 onMounted(() => {
   if (accountStore.accounts.length === 0) {

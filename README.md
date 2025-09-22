@@ -1,6 +1,26 @@
-# Vue 3 + Vite
+# Account Manager
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Минималистичное приложение для управления учетными записями с пастельным дизайном.
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
-# saasoft-test-task
+## Технологии
+
+- Vue 3 + Composition API
+- TypeScript
+- Pinia (стейт-менеджер)
+- Vite (сборка)
+
+## Установка и запуск
+
+```bash
+# Установка зависимостей
+npm install
+
+# Запуск в режиме разработки
+npm run dev
+
+# Сборка для production
+npm run build
+
+# Проверка типов TypeScript
+npm run type-check
+```

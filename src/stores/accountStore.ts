@@ -1,23 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-
-enum AccountType {
-    LOCAL = 'Локальная',
-    LDAP = 'LDAP'
-}
-
-export interface Account {
-  id: string
-  label: string
-  type: AccountType.LOCAL | AccountType.LDAP
-  login: string
-  password: string | null
-  errors: {
-    label?: string
-    login?: string
-    password?: string
-  }
-}
+import Account from './Account'
+import AccountType from './AccountType'
 
 export const useAccountStore = defineStore('accounts', () => {
   const accounts = ref<Account[]>([])
@@ -56,21 +40,18 @@ export const useAccountStore = defineStore('accounts', () => {
 
   const validateAccount = (account: Account): boolean => {
     account.errors = {}
-
-    // Validate label
+    
     if (account.label.length > 50) {
       account.errors.label = 'Максимум 50 символов'
     }
-
-    // Validate login
+    
     if (!account.login.trim()) {
       account.errors.login = 'Обязательное поле'
     } else if (account.login.length > 100) {
       account.errors.login = 'Максимум 100 символов'
     }
-
-    // Validate password (only for local accounts)
-    if (account.type === AccountType.LOCAL) {
+    
+    if (account.type === 'Локальная') {
       if (!account.password) {
         account.errors.password = 'Обязательное поле'
       } else if (account.password.length > 100) {
@@ -92,7 +73,7 @@ export const useAccountStore = defineStore('accounts', () => {
       .filter(item => item !== '')
       .map(item => ({ text: item }))
   }
-
+  
   loadFromStorage()
 
   return {
@@ -100,6 +81,7 @@ export const useAccountStore = defineStore('accounts', () => {
     addAccount,
     deleteAccount,
     validateAccount,
-    parseLabels
+    parseLabels,
+    saveToStorage
   }
 })
